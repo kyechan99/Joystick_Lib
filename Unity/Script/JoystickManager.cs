@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+/*********************************************************************
+* Date : 2016.04.03
+* Name : JoystickManager
+* Email : kyechan99@naver.com
+* Description : preparing..
+* This is Open Source, plz sharing if u know better way
+***********************************************************************/
+
+using UnityEngine;
 using System.Collections;
 
 public class JoystickManager : MonoBehaviour
