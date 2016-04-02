@@ -1,13 +1,13 @@
 /*********************************************************************
-* Date : 2015.09.30
-* Name : Á¶ÀÌ½ºÆ½ (¸ÖÆ¼ÅÍÄ¡)
+* Date : 2016.04.03
+* Name : Joystick (Cocos2d-X)
 * Email : kyechan99@naver.com
 * Description : http://blog.naver.com/kyechan99/220492857669
-* ¿ÀÇÂ ¼Ò½º ÀÔ´Ï´Ù. ´õ ³ªÀº ¼Ò½º °³¹ßÇÏ¸é °øÀ¯ÇØÁÖ¼¼¿ä.
+* This is Open Source, plz sharing if u know better way
 ***********************************************************************/
 #include "Joystick.h"
 
-// ¿øÇü°ª °è»ê
+// ì›í˜•ê°’ ê³„ì‚°
 bool isTouchCircle(Point pos, Point center, float radius)
 {
 	float dx = (pos.x - center.x);
@@ -20,52 +20,49 @@ bool Joystick::init()
 	if (!Layer::init())
 		return false;
 
-
-	//Size visibleSize = Director::getInstance()->getVisibleSize();
 	winSize = Director::getInstance()->getWinSize();
 
-
-	// ÅÍÄ¡ÇÏ°í ÀÖ´Â Áö À¯¹«
+	// í„°ì¹˜í•˜ê³  ìˆëŠ” ì§€ ìœ ë¬´
 	isTouch = false;
 
-	// ¿òÁ÷ÀÏ ½ºÇÇµå (º¯°æÇÏ·Á¸é setSpeed()ÇÔ¼ö »ç¿ë)
+	// ì›€ì§ì¼ ìŠ¤í”¼ë“œ (ë³€ê²½í•˜ë ¤ë©´ setSpeed()í•¨ìˆ˜ ì‚¬ìš©)
 	m_speed = 0.1f;
 
-	// À©µµ¿ì »çÀÌÁî¿¡ ÀÌµ¿À» Á¦ÇÑ ÇÒ°ÍÀÌÁö¿¡ ´ëÇÑ À¯¹«
+	// ìœˆë„ìš° ì‚¬ì´ì¦ˆì— ì´ë™ì„ ì œí•œ í• ê²ƒì´ì§€ì— ëŒ€í•œ ìœ ë¬´
 	isLimmitWinSize = false;
 
-	// Á¶ÀÌ½ºÆ½ - °¡¿îµ¥ ±âÁØÁ¡
+	// ì¡°ì´ìŠ¤í‹± - ê°€ìš´ë° ê¸°ì¤€ì 
 	centerPos = Vec2(125, 125);
 
 
-	// Á¶ÀÌ½ºÆ½ - Á¦ÇÑ µÇ¾î ÀÖ´Â °ø°£
+	// ì¡°ì´ìŠ¤í‹± - ì œí•œ ë˜ì–´ ìˆëŠ” ê³µê°„
 	joystick_limit = Sprite::create("joystick_limit_circle.png");
 	joystick_limit->setPosition(centerPos);
 	this->addChild(joystick_limit);
 
 
-	// Á¶ÀÌ½ºÆ½ - ¿òÁ÷ÀÏ °ø°£
+	// ì¡°ì´ìŠ¤í‹± - ì›€ì§ì¼ ê³µê°„
 	joystick_control = Sprite::create("joystick_control_circle.png");
 	joystick_control->setPosition(centerPos);
 	this->addChild(joystick_control);
 
 
-	// Á¶ÀÌ½ºÆ½ - ÄÁÆ®·Ñ·¯ÀÇ Æ÷Áö¼Ç
+	// ì¡°ì´ìŠ¤í‹± - ì»¨íŠ¸ë¡¤ëŸ¬ì˜ í¬ì§€ì…˜
 	controlerPos = centerPos;
 
 	return true;
 }
 
-// Á¶ÀÌ½ºÆ½ À§Ä¡, ÁÖÀÎ°ø À§Ä¡, ¸®¹ÌÆ® ¼³Á¤
+// ì¡°ì´ìŠ¤í‹± ìœ„ì¹˜, ì£¼ì¸ê³µ ìœ„ì¹˜, ë¦¬ë¯¸íŠ¸ ì„¤ì •
 void Joystick::update()
 {
-	// Á¶ÀÌ½ºÆ½ - Æ÷Áö¼Ç °ªÀ» °è¼Ó ¾÷µ¥ÀÌÆ® ÇØÁÜ
+	// ì¡°ì´ìŠ¤í‹± - í¬ì§€ì…˜ ê°’ì„ ê³„ì† ì—…ë°ì´íŠ¸ í•´ì¤Œ
 	joystick_control->setPosition(controlerPos);
 
-	// ÅÍÄ¡ µµÁßÀÏ¶§¸¸ ¿òÁ÷ÀÓ
+	// í„°ì¹˜ ë„ì¤‘ì¼ë•Œë§Œ ì›€ì§ì„
 	if (isTouch)
 	{
-		// ¿òÁ÷ÀÏ °Å¸® ±¸ÇÏ±â
+		// ì›€ì§ì¼ ê±°ë¦¬ êµ¬í•˜ê¸°
 		float moveX = controlerPos.x - centerPos.x;
 		float moveY = controlerPos.y - centerPos.y;
 
@@ -93,25 +90,25 @@ void Joystick::update()
 	}
 }
 
-// Á¶ÀÌ½ºÆ½ - ½ºÇÇµå ¼³Á¤
+// ì¡°ì´ìŠ¤í‹± - ìŠ¤í”¼ë“œ ì„¤ì •
 void Joystick::setSpeed(float speed)
 {
 	m_speed = speed;
 }
 
-// Á¶ÀÌ½ºÆ½ - ÁÖÀÎ°ø ¼³Á¤
+// ì¡°ì´ìŠ¤í‹± - ì£¼ì¸ê³µ ì„¤ì •
 void Joystick::setMainChar(Sprite* mainChar)
 {
 	this->mainChar = mainChar;
 }
 
-// ½ºÇÁ¶óÀÌÆ® È­¸é ÀÌµ¿ Á¦ÇÑ ¹Ş±â
+// ìŠ¤í”„ë¼ì´íŠ¸ í™”ë©´ ì´ë™ ì œí•œ ë°›ê¸°
 void Joystick::setLimitScreen(bool check)
 {
 	isLimmitWinSize = check;
 }
 
-// À©µµ¿ì »çÀÌÁî¿¡ ÀÌµ¿À» Á¦ÇÑ ÇÒ°ÍÀÌÁö¿¡ ´ëÇÑ À¯¹«
+// ìœˆë„ìš° ì‚¬ì´ì¦ˆì— ì´ë™ì„ ì œí•œ í• ê²ƒì´ì§€ì— ëŒ€í•œ ìœ ë¬´
 bool Joystick::checkLimit()
 {
 	return isLimmitWinSize;
@@ -120,7 +117,7 @@ bool Joystick::checkLimit()
 
 bool Joystick::onTouchBegan(Touch* touch, Event* unused_event)
 {
-	// Á¶ÀÌ½ºÆ½ - ¸®¹ÌÆ® °ø°£¾È¿¡¼­ ½ÃÀÛÀ» ÇÏ¿´´Ù¸é
+	// ì¡°ì´ìŠ¤í‹± - ë¦¬ë¯¸íŠ¸ ê³µê°„ì•ˆì—ì„œ ì‹œì‘ì„ í•˜ì˜€ë‹¤ë©´
 	if (isTouchCircle(touch->getLocation(), centerPos, joystick_limit->getContentSize().width / 2))
 	{
 		isTouch = true;
@@ -136,26 +133,24 @@ void Joystick::onTouchMoved(Touch* touch, Event* unused_event)
 {
 	if (isTouch)
 	{
-		// ÅÍÄ¡°¡ ¸®¹ÌÆ® ¹üÀ§¸¦ ³Ñ¾úÀ» ½Ã¿¡ ÄÁÆ®·Ñ·¯°¡ ³¡ºÎºĞ¿¡ ³²¾ÆÀÖ°Ô ÇÏ±â À§ÇÔ
-		if (!(isTouchCircle(touch->getLocation(), centerPos, joystick_limit->getContentSize().width / 2)))
+		float limitSize = joystick_limit->getContentSize().width / 2;	// ì œí•œ ë²”ìœ„ì˜ ë°˜ì§€ë¦„
+		
+		// í„°ì¹˜ê°€ ë¦¬ë¯¸íŠ¸ ë²”ìœ„ë¥¼ ë„˜ì—ˆì„ ì‹œì— ì»¨íŠ¸ë¡¤ëŸ¬ê°€ ëë¶€ë¶„ì— ë‚¨ì•„ìˆê²Œ í•˜ê¸° ìœ„í•¨
+		if (!(isTouchCircle(touch->getLocation(), centerPos, limitSize)))
 		{
-			Point touchPos = touch->getLocation();	// ÅÍÄ¡ À§Ä¡°ª
-			float limitSize = joystick_limit->getContentSize().width / 2;	// Á¦ÇÑ ¹üÀ§ÀÇ ¹İÁö¸§
+			Point touchPos = touch->getLocation();	// í„°ì¹˜ ìœ„ì¹˜ê°’
 
 			float dX = touchPos.x - centerPos.x;
 			float dY = touchPos.y - centerPos.y;
 
-			float distance = sqrt(dX*dX + dY*dY);	// ´ë°¢¼± ±æÀÌ ±¸ÇÏ±â
-			float angle = atan2(dY, dX);			// °¢µµ ±¸ÇÏ±â
+			float distance = sqrt(dX*dX + dY*dY);	// ëŒ€ê°ì„  ê¸¸ì´ êµ¬í•˜ê¸°
+			float angle = atan2(dY, dX);			// ê°ë„ êµ¬í•˜ê¸°
 
-			if (distance > limitSize){
+			if (distance > limitSize)
+			{
 				dX = cos(angle) * limitSize;
 				dY = sin(angle) * limitSize;
-			}
-
-
-			if (distance > joystick_control->getContentSize().width / 2)
-			{
+				
 				touchPos.x = centerPos.x + dX;
 				touchPos.y = centerPos.y + dY;
 			}
@@ -175,7 +170,7 @@ void Joystick::onTouchEnded(Touch* touch, Event* unused_event)
 {
 	if (isTouch)
 	{
-		// ÅÍÄ¡°¡ ³¡³ª¸é Á¶ÀÌ½ºÆ½Àº ¿ø·¡ À§Ä¡·Î µ¹¾Æ°¨
+		// í„°ì¹˜ê°€ ëë‚˜ë©´ ì¡°ì´ìŠ¤í‹±ì€ ì›ë˜ ìœ„ì¹˜ë¡œ ëŒì•„ê°
 		controlerPos = centerPos;
 	}
 	isTouch = false;
