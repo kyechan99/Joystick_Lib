@@ -1,9 +1,9 @@
 /*********************************************************************
-* Date : 2015.09.30
-* Name : Á¶ÀÌ½ºÆ½ (¸ÖÆ¼ÅÍÄ¡)
+* Date : 2016.04.03
+* Name : Joystick (Cocos2d-X)
 * Email : kyechan99@naver.com
 * Description : http://blog.naver.com/kyechan99/220492857669
-* ¿ÀÇÂ ¼Ò½º ÀÔ´Ï´Ù. ´õ ³ªÀº ¼Ò½º °³¹ßÇÏ¸é °øÀ¯ÇØÁÖ¼¼¿ä.
+* This is Open Source, plz sharing if u know better way
 ***********************************************************************/
 #pragma once
 #include "cocos2d.h"
@@ -12,18 +12,18 @@ using namespace cocos2d;
 class Joystick : public Layer
 {
 private:
-	Sprite* joystick_limit;		// Á¶ÀÌ½ºÆ½ - Á¦ÇÑµÈ °ø°£ ÀúÀå 
-	Sprite* joystick_control;	// Á¶ÀÌ½ºÆ½ - ¿òÁ÷ÀÏ ÄÁÆ®·Ñ·¯ ÀúÀå
-	Sprite* mainChar;			// Á¶ÀÌ½ºÆ½ - ÄÁÆ®·ÑÇÒ ½ºÇÁ¶óÀÌÆ®
+	Sprite* joystick_limit;		// ì¡°ì´ìŠ¤í‹± - ì œí•œëœ ê³µê°„ ì €ì¥ 
+	Sprite* joystick_control;	// ì¡°ì´ìŠ¤í‹± - ì›€ì§ì¼ ì»¨íŠ¸ë¡¤ëŸ¬ ì €ì¥
+	Sprite* mainChar;			// ì¡°ì´ìŠ¤í‹± - ì»¨íŠ¸ë¡¤í•  ìŠ¤í”„ë¼ì´íŠ¸
 
 private:
-	Vec2 controlerPos;			// Á¶ÀÌ½ºÆ½ - ÄÁÆ®·Ñ·¯ÀÇ À§Ä¡ °ª ÀúÀå
-	Vec2 centerPos;				// Á¶ÀÌ½ºÆ½ - °¡¿îµ¥ ±âÁßÁ¡ÀÇ À§Ä¡ °ª ÀúÀå
+	Vec2 controlerPos;			// ì¡°ì´ìŠ¤í‹± - ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ìœ„ì¹˜ ê°’ ì €ì¥
+	Vec2 centerPos;				// ì¡°ì´ìŠ¤í‹± - ê°€ìš´ë° ê¸°ì¤‘ì ì˜ ìœ„ì¹˜ ê°’ ì €ì¥
 
 private:
-	bool isTouch;				// ¿Ã¹Ù¸¥ À§Ä¡¿¡¼­ ÅÍÄ¡ÇÏ¿´´ÂÁö À¯¹«
-	float m_speed;				// ¿òÁ÷ÀÏ ¼Óµµ
-	bool isLimmitWinSize;		// À©»çÀÌÁî¿¡ Á¦ÇÑÀ» °É°ÍÀÎÁö À¯¹«
+	bool isTouch;				// ì˜¬ë°”ë¥¸ ìœ„ì¹˜ì—ì„œ í„°ì¹˜í•˜ì˜€ëŠ”ì§€ ìœ ë¬´
+	float m_speed;				// ì›€ì§ì¼ ì†ë„
+	bool isLimmitWinSize;		// ìœˆì‚¬ì´ì¦ˆì— ì œí•œì„ ê±¸ê²ƒì¸ì§€ ìœ ë¬´
 	Size winSize;
 
 public:
@@ -32,22 +32,22 @@ public:
 
 	virtual bool init();
 
-	// Á¶ÀÌ½ºÆ½ À§Ä¡, ÁÖÀÎ°ø À§Ä¡, ¸®¹ÌÆ® ¼³Á¤
+	// ì¡°ì´ìŠ¤í‹± ìœ„ì¹˜, ì£¼ì¸ê³µ ìœ„ì¹˜, ë¦¬ë¯¸íŠ¸ ì„¤ì •
 	void update();
 
-	// Á¶ÀÌ½ºÆ½ - ÁÖÀÎ°ø ¼³Á¤
+	// ì¡°ì´ìŠ¤í‹± - ì£¼ì¸ê³µ ì„¤ì •
 	void setMainChar(Sprite* mainChar);
 
-	// Á¶ÀÌ½ºÆ½ - ½ºÇÇµå ¼³Á¤
+	// ì¡°ì´ìŠ¤í‹± - ìŠ¤í”¼ë“œ ì„¤ì •
 	void setSpeed(float speed);
 
-	// ½ºÇÁ¶óÀÌÆ® È­¸é ÀÌµ¿ Á¦ÇÑ ¹Ş±â
+	// ìŠ¤í”„ë¼ì´íŠ¸ í™”ë©´ ì´ë™ ì œí•œ ë°›ê¸°
 	void setLimitScreen(bool check);
 
-	// À©µµ¿ì »çÀÌÁî¿¡ ÀÌµ¿À» Á¦ÇÑ ÇÒ°ÍÀÌÁö¿¡ ´ëÇÑ À¯¹«
+	// ìœˆë„ìš° ì‚¬ì´ì¦ˆì— ì´ë™ì„ ì œí•œ í• ê²ƒì´ì§€ì— ëŒ€í•œ ìœ ë¬´
 	bool checkLimit();
 
-	// ÅÍÄ¡
+	// í„°ì¹˜
 	bool onTouchBegan(Touch* touch, Event* unused_event);
 	void onTouchMoved(Touch* touch, Event* unused_event);
 	void onTouchEnded(Touch* touch, Event* unused_event);
