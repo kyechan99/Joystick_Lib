@@ -5,11 +5,11 @@ Import Joystick Function
 
 
 ## Cocos2d-X ver.
-File Explain Site : http://blog.naver.com/kyechan99/220492857669
+File Explain  : http://blog.naver.com/kyechan99/220492857669
 
 조이스틱 생성 (필수로 적어야 할것들)
 ```
- joystick = Joystick::create();
+ Joystick* joystick = Joystick::create();
  joystick->setMainChar();	// 조이스틱으로 이동할 스프라이트를 적습니다.
  this->addChild(joystick);
 ```
@@ -42,7 +42,7 @@ onTouchEnded(Touch* touch, Event* unused_event)
 ```
 
 ## Unity ver.
-File Explain Site : preparing...
+File Explain  : preparing...
 
 스크립트 추가 후
 Inspector에서 해당 오브젝트들을 옮겨 주면 실행
