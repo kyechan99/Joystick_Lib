@@ -1,7 +1,11 @@
-# Joystick_cocos2d
-kyechan99's cocos2dx project
+# Joystick_Lib
+Import Joystick Function
++ [Email Address](kyechan99@naver.com)
++ [WebSite](blog.naver.com/kyechan99)
 
-http://blog.naver.com/kyechan99/220492857669
+
+## Cocos2d-X ver.
+File Explain Site : http://blog.naver.com/kyechan99/220492857669
 
 조이스틱 생성 (필수로 적어야 할것들)
  >joystick = Joystick::create();
@@ -17,7 +21,8 @@ http://blog.naver.com/kyechan99/220492857669
 
 
 씬에 적어주셔야 할것들(HelloWorldScene.cpp)
-```Update()
+```
+Update()
 {
 	joystick->update();
 }
@@ -33,4 +38,9 @@ onTouchmoved(Touch* touch, Event* unused_event)
 onTouchEnded(Touch* touch, Event* unused_event)
 {
 	joystick->onTouchEnded(touch,unused_event);
-}```
+}
+```
+
+## Unity ver.
+스크립트 추가 후
+Inspector에서 해당 오브젝트들을 옮겨 주면 실행
