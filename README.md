@@ -4,6 +4,9 @@ Import Joystick Function
 + [WebSite](blog.naver.com/kyechan99) : http://blog.naver.com/kyechan99
 
 
+
+-
+
 ## Cocos2d-X ver.
 File Explain  : http://blog.naver.com/kyechan99/220492857669
 
@@ -41,6 +44,9 @@ onTouchEnded(Touch* touch, Event* unused_event)
 }
 ```
 
+
+-
+
 ## Unity ver.
 File Explain  : preparing...
 
@@ -50,6 +56,9 @@ Inspector에서 해당 오브젝트들을 옮겨 주면 실행
 
 
 
+
+
+-
 
 
 
