@@ -1,9 +1,9 @@
 /*********************************************************************
-* Date : 2015.09.30
-* Name : Á¶ÀÌ½ºÆ½ (¸ÖÆ¼ÅÍÄ¡)
+* Date : 2016.04.03
+* Name : Joystick (Cocos2d-X)
 * Email : kyechan99@naver.com
 * Description : http://blog.naver.com/kyechan99/220492857669
-* ¿ÀÇÂ ¼Ò½º ÀÔ´Ï´Ù. ´õ ³ªÀº ¼Ò½º °³¹ßÇÏ¸é °øÀ¯ÇØÁÖ¼¼¿ä.
+* This is Open Source, plz sharing if u know better way
 ***********************************************************************/
 #include "HelloWorldScene.h"
 
@@ -30,16 +30,16 @@ bool HelloWorld::init()
 	this->addChild(spr);
 
 
-	// Á¶ÀÌ½ºÆ½
-	joystick = Joystick::create();	// Á¶ÀÌ½ºÆ½ »ý¼º
-	joystick->setMainChar(spr);		// Á¶ÀÌ½ºÆ½À¸·Î Á¶Á¾ÇÒ ½ºÇÁ¶óÀÌÆ® ¼³Á¤
-	joystick->setSpeed(0.1f);		// Á¶ÀÌ½ºÆ½À¸·Î ¿òÁ÷ÀÏ ½ºÇÇµå ¼³Á¤
-	joystick->setLimitScreen(true);	// ½ºÇÁ¶óÀÌÆ® ¿òÁ÷ÀÓÀ» È­¸é¿¡ Á¦ÇÑ°ÉÀ¸·Á¸é true, ¾Æ´Ï¶ó¸é false ¶Ç´Â ¾È½áµµ µÊ
+	// ì¡°ì´ìŠ¤í‹±
+	joystick = Joystick::create();	// ì¡°ì´ìŠ¤í‹± ìƒì„±
+	joystick->setMainChar(spr);		// ì¡°ì´ìŠ¤í‹±ìœ¼ë¡œ ì¡°ì¢…í•  ìŠ¤í”„ë¼ì´íŠ¸ ì„¤ì •
+	joystick->setSpeed(0.1f);		// ì¡°ì´ìŠ¤í‹±ìœ¼ë¡œ ì›€ì§ì¼ ìŠ¤í”¼ë“œ ì„¤ì •
+	joystick->setLimitScreen(true);	// ìŠ¤í”„ë¼ì´íŠ¸ ì›€ì§ìž„ì„ í™”ë©´ì— ì œí•œê±¸ìœ¼ë ¤ë©´ true, ì•„ë‹ˆë¼ë©´ false ë˜ëŠ” ì•ˆì¨ë„ ë¨
 	this->addChild(joystick);
 
 
 
-	// ÅÍÄ¡
+	// í„°ì¹˜
 	this->setTouchEnabled(true);
 	this->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
 
