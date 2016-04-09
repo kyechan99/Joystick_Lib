@@ -10,8 +10,9 @@ File Explain  : http://blog.naver.com/kyechan99/220492857669
 
 ### Edition
 ```
- joystick->setSpeed(0.1f);	      // moving speed (standard : 0.1f);
- joystick->setLimitScreen(true);  // limit screen size (standard : false);
+ joystick->setSpeed(0.1f);	      	// moving speed (standard : 0.1f);
+ joystick->setLimitScreen(true);  	// limit screen size (standard : false);
+ joystick->setTouchShow(true);		// Show Joystick on Touch Position
 ```
 
 ### Write (HelloWorldScene.cpp)
