@@ -1,14 +1,15 @@
 /*********************************************************************
 * Date : 2016.04.03
-* Name : Joystick (Cocos2d-X)
+* Name : Joystick (Cocos2d-X ver 3.X)
 * Email : kyechan99@naver.com
+* GitHub : https://github.com/kyechan99/Joystick_Lib
 * Description : http://blog.naver.com/kyechan99/220492857669
 * This is Open Source, plz sharing if u know better way
 ***********************************************************************/
 #include "Joystick.h"
 
 // 원형값 계산
-bool isTouchCircle(Point pos, Point center, float radius)
+bool Joystick::isTouchCircle(Point pos, Point center, float radius)
 {
 	float dx = (pos.x - center.x);
 	float dy = (pos.y - center.y);
@@ -20,47 +21,47 @@ bool Joystick::init()
 	if (!Layer::init())
 		return false;
 
-	winSize = Director::getInstance()->getWinSize();
 
-	// 터치하고 있는 지 유무
-	isTouch = false;
+	_winSize = Director::getInstance()->getWinSize();
 
-	// 움직일 스피드 (변경하려면 setSpeed()함수 사용)
-	m_speed = 0.1f;
+	_isTouch = false;
 
-	// 윈도우 사이즈에 이동을 제한 할것이지에 대한 유무
-	isLimmitWinSize = false;
+	// speed
+	_speed = 0.1;
 
-	// 조이스틱 - 가운데 기준점
+	// touch show
+	_isTouchShow = false;
+
+	// limit win size
+	_isLimmitWinSize = false;
+
+	// Joystick - Standard Position
 	centerPos = Vec2(125, 125);
 
-
-	// 조이스틱 - 제한 되어 있는 공간
+	// Joystick - Back Sprite (Limit)
 	joystick_limit = Sprite::create("joystick_limit_circle.png");
 	joystick_limit->setPosition(centerPos);
 	this->addChild(joystick_limit);
 
 
-	// 조이스틱 - 움직일 공간
+	// Joystick - Front Sprite (Controler)
 	joystick_control = Sprite::create("joystick_control_circle.png");
 	joystick_control->setPosition(centerPos);
 	this->addChild(joystick_control);
 
-
-	// 조이스틱 - 컨트롤러의 포지션
+	// Joystick - Controler Position
 	controlerPos = centerPos;
 
 	return true;
 }
 
-// 조이스틱 위치, 주인공 위치, 리미트 설정
 void Joystick::update()
 {
 	// 조이스틱 - 포지션 값을 계속 업데이트 해줌
 	joystick_control->setPosition(controlerPos);
 
 	// 터치 도중일때만 움직임
-	if (isTouch)
+	if (_isTouch)
 	{
 		// 움직일 거리 구하기
 		float moveX = controlerPos.x - centerPos.x;
@@ -68,73 +69,84 @@ void Joystick::update()
 
 		Vec2 charPos = mainChar->getPosition();
 
-
 		if (checkLimit())
 		{
-			if (0 < charPos.x + moveX * m_speed && charPos.x + moveX * m_speed < winSize.width)
+			if (0 < charPos.x + moveX * _speed && charPos.x + moveX * _speed < _winSize.width)
 			{
-				charPos.x += moveX * m_speed;
+				charPos.x += moveX * _speed;
 			}
-			if (0 < charPos.y + moveY * m_speed && charPos.y + moveY * m_speed < winSize.height)
+			if (0 < charPos.y + moveY * _speed && charPos.y + moveY * _speed < _winSize.height)
 			{
-				charPos.y += moveY * m_speed;
+				charPos.y += moveY * _speed;
 			}
 			mainChar->setPosition(charPos);
 		}
 		else
 		{
-			charPos.x += moveX * m_speed;
-			charPos.y += moveY * m_speed;
+			charPos.x += moveX * _speed;
+			charPos.y += moveY * _speed;
 			mainChar->setPosition(charPos);
 		}
 	}
 }
 
-// 조이스틱 - 스피드 설정
 void Joystick::setSpeed(float speed)
 {
-	m_speed = speed;
+	_speed = speed;
 }
 
-// 조이스틱 - 주인공 설정
 void Joystick::setMainChar(Sprite* mainChar)
 {
 	this->mainChar = mainChar;
 }
 
-// 스프라이트 화면 이동 제한 받기
+void Joystick::setTouchShow(bool check)
+{
+	_isTouchShow = check;
+
+	if (_isTouchShow)
+		this->setVisible(false);
+}
+
 void Joystick::setLimitScreen(bool check)
 {
-	isLimmitWinSize = check;
+	_isLimmitWinSize = check;
 }
 
-// 윈도우 사이즈에 이동을 제한 할것이지에 대한 유무
 bool Joystick::checkLimit()
 {
-	return isLimmitWinSize;
+	return _isLimmitWinSize;
 }
-
 
 bool Joystick::onTouchBegan(Touch* touch, Event* unused_event)
 {
-	// 조이스틱 - 리미트 공간안에서 시작을 하였다면
-	if (isTouchCircle(touch->getLocation(), centerPos, joystick_limit->getContentSize().width / 2))
+	if (_isTouchShow)
 	{
-		isTouch = true;
+		centerPos = touch->getLocation();
+		joystick_limit->setPosition(centerPos);
+		joystick_control->setPosition(centerPos);
+		this->setVisible(true);
+	}
+
+
+	// 조이스틱 - 리미트 공간안에서 시작을 하였다면
+	if (isTouchCircle(touch->getLocation(), centerPos, joystick_limit->getContentSize().width / 4))
+	{
+		_isTouch = true;
 
 		controlerPos = touch->getLocation();
 
-		return isTouch;
+		return _isTouch;
 	}
-	return isTouch;
+	return _isTouch;
 }
 
 void Joystick::onTouchMoved(Touch* touch, Event* unused_event)
 {
-	if (isTouch)
+	if (_isTouch)
 	{
-		float limitSize = joystick_limit->getContentSize().width / 2;	// 제한 범위의 반지름
-		
+		float limitSize = joystick_limit->getContentSize().width / 4;	// 제한 범위의 반지름
+
 		// 터치가 리미트 범위를 넘었을 시에 컨트롤러가 끝부분에 남아있게 하기 위함
 		if (!(isTouchCircle(touch->getLocation(), centerPos, limitSize)))
 		{
@@ -150,7 +162,7 @@ void Joystick::onTouchMoved(Touch* touch, Event* unused_event)
 			{
 				dX = cos(angle) * limitSize;
 				dY = sin(angle) * limitSize;
-				
+
 				touchPos.x = centerPos.x + dX;
 				touchPos.y = centerPos.y + dY;
 			}
@@ -168,10 +180,13 @@ void Joystick::onTouchMoved(Touch* touch, Event* unused_event)
 
 void Joystick::onTouchEnded(Touch* touch, Event* unused_event)
 {
-	if (isTouch)
+	if (_isTouch)
 	{
 		// 터치가 끝나면 조이스틱은 원래 위치로 돌아감
 		controlerPos = centerPos;
 	}
-	isTouch = false;
+	_isTouch = false;
+
+	if (_isTouchShow)
+		this->setVisible(false);
 }
