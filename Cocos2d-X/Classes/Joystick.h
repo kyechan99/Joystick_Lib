@@ -1,7 +1,8 @@
 /*********************************************************************
 * Date : 2016.04.03
-* Name : Joystick (Cocos2d-X)
+* Name : Joystick (Cocos2d-X ver 3.X)
 * Email : kyechan99@naver.com
+* GitHub : https://github.com/kyechan99/Joystick_Lib
 * Description : http://blog.naver.com/kyechan99/220492857669
 * This is Open Source, plz sharing if u know better way
 ***********************************************************************/
@@ -12,19 +13,20 @@ using namespace cocos2d;
 class Joystick : public Layer
 {
 private:
-	Sprite* joystick_limit;		// 조이스틱 - 제한된 공간 저장 
-	Sprite* joystick_control;	// 조이스틱 - 움직일 컨트롤러 저장
-	Sprite* mainChar;			// 조이스틱 - 컨트롤할 스프라이트
+	Sprite* joystick_limit;		// Joystick - back Sprite
+	Sprite* joystick_control;	// Joystick - front Sprite
+	Sprite* mainChar;			// Joystick - character
 
 private:
-	Vec2 controlerPos;			// 조이스틱 - 컨트롤러의 위치 값 저장
-	Vec2 centerPos;				// 조이스틱 - 가운데 기중점의 위치 값 저장
+	Vec2 controlerPos;			// Joystick - controler position
+	Vec2 centerPos;				// Joystick - center position
 
 private:
-	bool isTouch;				// 올바른 위치에서 터치하였는지 유무
-	float m_speed;				// 움직일 속도
-	bool isLimmitWinSize;		// 윈사이즈에 제한을 걸것인지 유무
-	Size winSize;
+	float _speed;				// speed
+	bool _isTouch;
+	bool _isTouchShow;			// show joystick (onTouchBegan)
+	bool _isLimmitWinSize;		// limit move
+	Size _winSize;
 
 public:
 	Joystick(){};
@@ -32,22 +34,37 @@ public:
 
 	virtual bool init();
 
-	// 조이스틱 위치, 주인공 위치, 리미트 설정
+	/*
+	@brief : joystick update
+	*/
 	void update();
 
-	// 조이스틱 - 주인공 설정
+	/*
+	@brief : set character
+	*/
 	void setMainChar(Sprite* mainChar);
 
-	// 조이스틱 - 스피드 설정
+	/*
+	@brief : character speed (standard : 0.1f)
+	*/
 	void setSpeed(float speed);
 
-	// 스프라이트 화면 이동 제한 받기
+	/*
+	@brief : true - show touch began
+	*/
+	void setTouchShow(bool check);
+
+	/*
+	@brief : true - limit win size
+	*/
 	void setLimitScreen(bool check);
 
-	// 윈도우 사이즈에 이동을 제한 할것이지에 대한 유무
+
+
 	bool checkLimit();
 
-	// 터치
+	bool isTouchCircle(Point pos, Point center, float radius);
+
 	bool onTouchBegan(Touch* touch, Event* unused_event);
 	void onTouchMoved(Touch* touch, Event* unused_event);
 	void onTouchEnded(Touch* touch, Event* unused_event);
