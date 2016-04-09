@@ -7,7 +7,8 @@ Import Joystick Function
 
 -
 ## Cocos2d-X ver.
-[File Explain : https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md](https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md)
+File Explain : [https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md](https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md)
+
 webSite : [http://kyechan99.tistory.com/8](http://kyechan99.tistory.com/8)
 
 
