@@ -1,7 +1,7 @@
 # Joystick_Lib
 Import Joystick Function
-+ [Email Address](kyechan99@naver.com) : kyechan99@naver.com
-+ [WebSite](blog.naver.com/kyechan99) : http://blog.naver.com/kyechan99
++ Email Address : kyechan99@naver.com
++ WebSite : http://blog.naver.com/kyechan99
 
 
 
