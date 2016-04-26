@@ -5,6 +5,14 @@
 * GitHub : https://github.com/kyechan99/Joystick_Lib
 * Description : http://blog.naver.com/kyechan99/220492857669
 * This is Open Source, plz sharing if u know better way
+
+* Modified List
+* Date : 2016.04.26
+* Name : Joystick (Cocos2d-X ver 3.X)
+* Email : mark4215@naver.com
+* GitHub : https://github.com/haminjun/Joystick_Lib
+* By registering listeners to replace the touch inner class
+* Registration / release a scheduler inside
 ***********************************************************************/
 #pragma once
 #include "cocos2d.h"
@@ -30,14 +38,14 @@ private:
 
 public:
 	Joystick(){};
-	~Joystick(){};
+	~Joystick();
 
 	virtual bool init();
 
 	/*
 	@brief : joystick update
 	*/
-	void update();
+	void update(float dt);
 
 	/*
 	@brief : set character
@@ -65,9 +73,9 @@ public:
 
 	bool isTouchCircle(Point pos, Point center, float radius);
 
-	bool onTouchBegan(Touch* touch, Event* unused_event);
-	void onTouchMoved(Touch* touch, Event* unused_event);
-	void onTouchEnded(Touch* touch, Event* unused_event);
+	virtual void onTouchesBegan(const std::vector<Touch*> &touches, Event* unused_event) override;
+	virtual void onTouchesMoved(const std::vector<Touch*> &touches, Event* unused_event) override;
+	virtual void onTouchesEnded(const std::vector<Touch*> &touches, Event* unused_event) override;
 
 	CREATE_FUNC(Joystick);
 };
