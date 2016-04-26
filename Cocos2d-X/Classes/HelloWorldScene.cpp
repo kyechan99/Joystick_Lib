@@ -37,41 +37,5 @@ bool HelloWorld::init()
 	joystick->setTouchShow(true);
 	this->addChild(joystick);
 
-	
-	this->setTouchEnabled(true);
-	this->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
-
-
-	schedule(schedule_selector(HelloWorld::update), 0.0f);
-
 	return true;
-}
-
-void HelloWorld::update(float dt)
-{
-	joystick->update();
-}
-
-void HelloWorld::onTouchesBegan(const std::vector<Touch*> &touches, Event* unused_event)
-{
-	for (auto it : touches)
-	{
-		joystick->onTouchBegan(it, unused_event);
-	}
-}
-
-void HelloWorld::onTouchesMoved(const std::vector<Touch*> &touches, Event* unused_event)
-{
-	for (auto it : touches)
-	{
-		joystick->onTouchMoved(it, unused_event);
-	}
-}
-
-void HelloWorld::onTouchesEnded(const std::vector<Touch*> &touches, Event* unused_event)
-{
-	for (auto it : touches)
-	{
-		joystick->onTouchEnded(it, unused_event);
-	}
 }

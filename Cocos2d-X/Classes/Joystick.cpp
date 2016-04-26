@@ -16,6 +16,11 @@ bool Joystick::isTouchCircle(Point pos, Point center, float radius)
 	return (radius >= sqrt((dx*dx) + (dy*dy)));
 }
 
+Joystick::~Joystick()
+{
+	cocos2d::Director::getInstance()->getScheduler()->unschedule("JoyStickUpdate", this);
+}
+
 bool Joystick::init()
 {
 	if (!Layer::init())
@@ -52,10 +57,19 @@ bool Joystick::init()
 	// Joystick - Controler Position
 	controlerPos = centerPos;
 
+	// Touch Enabled
+	this->setTouchEnabled(true);
+	this->setTouchMode(Touch::DispatchMode::ALL_AT_ONCE);
+
+	// setSchedule Update
+	cocos2d::Director::getInstance()->getScheduler()->schedule(
+		std::bind(&Joystick::update, this, std::placeholders::_1),
+		this, 1 / 60.f, false, "JoyStickUpdate");
+
 	return true;
 }
 
-void Joystick::update()
+void Joystick::update(float dt)
 {
 	// 조이스틱 - 포지션 값을 계속 업데이트 해줌
 	joystick_control->setPosition(controlerPos);
@@ -118,75 +132,81 @@ bool Joystick::checkLimit()
 	return _isLimmitWinSize;
 }
 
-bool Joystick::onTouchBegan(Touch* touch, Event* unused_event)
+void Joystick::onTouchesBegan(const std::vector<Touch*> &touches, Event* unused_event)
 {
-	if (_isTouchShow)
+	for (auto it : touches)
 	{
-		centerPos = touch->getLocation();
-		joystick_limit->setPosition(centerPos);
-		joystick_control->setPosition(centerPos);
-		this->setVisible(true);
-	}
-
-
-	// 조이스틱 - 리미트 공간안에서 시작을 하였다면
-	if (isTouchCircle(touch->getLocation(), centerPos, joystick_limit->getContentSize().width / 4))
-	{
-		_isTouch = true;
-
-		controlerPos = touch->getLocation();
-
-		return _isTouch;
-	}
-	return _isTouch;
-}
-
-void Joystick::onTouchMoved(Touch* touch, Event* unused_event)
-{
-	if (_isTouch)
-	{
-		float limitSize = joystick_limit->getContentSize().width / 4;	// 제한 범위의 반지름
-
-		// 터치가 리미트 범위를 넘었을 시에 컨트롤러가 끝부분에 남아있게 하기 위함
-		if (!(isTouchCircle(touch->getLocation(), centerPos, limitSize)))
+		Touch* touch = it;
+		if (_isTouchShow)
 		{
-			Point touchPos = touch->getLocation();	// 터치 위치값
-
-			float dX = touchPos.x - centerPos.x;
-			float dY = touchPos.y - centerPos.y;
-
-			float distance = sqrt(dX*dX + dY*dY);	// 대각선 길이 구하기
-			float angle = atan2(dY, dX);			// 각도 구하기
-
-			if (distance > limitSize)
-			{
-				dX = cos(angle) * limitSize;
-				dY = sin(angle) * limitSize;
-
-				touchPos.x = centerPos.x + dX;
-				touchPos.y = centerPos.y + dY;
-			}
-
-			controlerPos = Vec2(touchPos);
-
+			centerPos = touch->getLocation();
+			joystick_limit->setPosition(centerPos);
+			joystick_control->setPosition(centerPos);
+			this->setVisible(true);
 		}
-		else
+
+		// 조이스틱 - 리미트 공간안에서 시작을 하였다면
+		if (isTouchCircle(touch->getLocation(), centerPos, joystick_limit->getContentSize().width / 4))
 		{
+			_isTouch = true;
+
 			controlerPos = touch->getLocation();
 		}
-
 	}
 }
 
-void Joystick::onTouchEnded(Touch* touch, Event* unused_event)
+void Joystick::onTouchesMoved(const std::vector<Touch*> &touches, Event* unused_event)
 {
-	if (_isTouch)
+	for (auto it : touches)
 	{
-		// 터치가 끝나면 조이스틱은 원래 위치로 돌아감
-		controlerPos = centerPos;
-	}
-	_isTouch = false;
+		Touch* touch = it;
+		if (_isTouch)
+		{
+			float limitSize = joystick_limit->getContentSize().width / 4;	// 제한 범위의 반지름
 
-	if (_isTouchShow)
-		this->setVisible(false);
+			// 터치가 리미트 범위를 넘었을 시에 컨트롤러가 끝부분에 남아있게 하기 위함
+			if (!(isTouchCircle(touch->getLocation(), centerPos, limitSize)))
+			{
+				Point touchPos = touch->getLocation();	// 터치 위치값
+
+				float dX = touchPos.x - centerPos.x;
+				float dY = touchPos.y - centerPos.y;
+
+				float distance = sqrt(dX*dX + dY*dY);	// 대각선 길이 구하기
+				float angle = atan2(dY, dX);			// 각도 구하기
+
+				if (distance > limitSize)
+				{
+					dX = cos(angle) * limitSize;
+					dY = sin(angle) * limitSize;
+
+					touchPos.x = centerPos.x + dX;
+					touchPos.y = centerPos.y + dY;
+				}
+
+				controlerPos = Vec2(touchPos);
+
+			}
+			else
+			{
+				controlerPos = touch->getLocation();
+			}
+		}
+	}
+}
+
+void Joystick::onTouchesEnded(const std::vector<Touch*> &touches, Event* unused_event)
+{
+	for (auto it : touches)
+	{
+		if (_isTouch)
+		{
+			// 터치가 끝나면 조이스틱은 원래 위치로 돌아감
+			controlerPos = centerPos;
+		}
+		_isTouch = false;
+
+		if (_isTouchShow)
+			this->setVisible(false);
+	}
 }
