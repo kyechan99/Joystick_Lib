@@ -1,9 +1,8 @@
 /*********************************************************************
-* Date : 2016.04.03
+* Date : 2017.08.02
 * Name : JoystickManager
-* Email : kyechan99@naver.com
-* Description : preparing..
-* This is Open Source, plz sharing if u know better way
+* Description : Joystick (Unity 5.x.x)
+* Link : https://github.com/kyechan99/Joystick_Lib
 ***********************************************************************/
 
 using UnityEngine;
@@ -24,8 +23,8 @@ public class JoystickManager : MonoBehaviour
 
     Vector2 _touchPos;
     bool _canMove = false;
-    float _speed = 0.1f;
-    float _limitSize = 1.5f;
+    public float _speed = 0.1f;
+    public float _limitSize = 0.9f;		// joystick Limit Move Size
 
 
     void Update()

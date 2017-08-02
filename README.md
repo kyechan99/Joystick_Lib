@@ -1,18 +1,16 @@
 # Joystick_Lib
 Import Joystick Function
-+ Email Address : kyechan99@naver.com
-+ WebSite : http://blog.naver.com/kyechan99
+- Email Address : kyechan99@naver.com
+- WebSite : http://blog.naver.com/kyechan99
 
 
-
--
 ## Cocos2d-X ver.
 File Explain : [https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md](https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md)
 
-webSite : [http://kyechan99.tistory.com/8](http://kyechan99.tistory.com/8)
+webSite : [Blog](https://kyechan99.github.io/lib/2017/03/18/Joystick-Lib-Cocos2dX.html)
 
 
--
+
 ## Unity ver.
 File Explain  : preparing...
 
