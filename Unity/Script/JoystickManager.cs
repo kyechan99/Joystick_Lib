@@ -1,7 +1,7 @@
 /*********************************************************************
-* Date : 2017.08.02
+* Date : 2018.05.14
 * Name : JoystickManager
-* Description : Joystick (Unity 5.x.x)
+* Description : Joystick (Unity 2018.01)
 * Link : https://github.com/kyechan99/Joystick_Lib
 ***********************************************************************/
 
