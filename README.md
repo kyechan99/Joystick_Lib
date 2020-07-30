@@ -1,18 +1,12 @@
 # Joystick_Lib
 Import Joystick Function
-- Email Address : kyechan99@naver.com
-- WebSite : http://blog.naver.com/kyechan99
 
+<a href="https://serviceapi.nmv.naver.com/flash/convertIframeTag.nhn?vid=544D4AB2A53CC00A972D261C4D64C3B37EF1&outKey=V128ff9d75f0e95a7adc40af7884589909a7f910cd08cdf4c57c30af7884589909a7f&width=544&height=306">
+<img src="https://img.shields.io/badge/DEMO%20-%234FC08D.svg?&style=for-the-badge&&logoColor=white"/>
+</a>
 
 ## Cocos2d-X ver.
-File Explain : [https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md](https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X/README.md)
-
-webSite : [Blog](https://kyechan99.github.io/lib/2017/03/18/Joystick-Lib-Cocos2dX.html)
-
-
+How to use : [Cocos2d-X / README](https://github.com/kyechan99/Joystick_Lib/blob/master/Cocos2d-X)
 
 ## Unity ver.
-File Explain  : preparing...
-
-스크립트 추가 후
-Inspector에서 해당 오브젝트들을 옮겨 주면 실행
+How to use : [Unity / README](https://github.com/kyechan99/Joystick_Lib/tree/master/Unity)
